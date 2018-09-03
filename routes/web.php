@@ -3,9 +3,10 @@
 /*tipos de rutas */
 Route::get('test',function(){
 	$user = new App\User;
-	$user->name = 'Pablo';
-	$user->email = 'vieyrapez@gmail.com';
+	$user->name = 'Alan';
+	$user->email = 'alan@gmail.com';
 	$user->password = bcrypt('secret');
+	$user->role = 'estudiante';
 	$user->save();
 
 	return $user;
@@ -25,6 +26,7 @@ Route::get('saludo/{nombre?}',
 
 
 Route::resource('mensajes','MessagesController');
+Route::resource('usuarios','UsersController');
 
 Route::get('login','Auth\LoginController@showLoginForm');
 Route::post('login','Auth\LoginController@login');
