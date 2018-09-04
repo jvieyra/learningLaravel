@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +39,7 @@
 					<a class="nav-link" href="{{ route('mensajes.index') }}"> Mensajes</a>
 				</li>
 				
-				@if(auth()->user()->hasRoles(['admin','estudiante']))
+				@if(auth()->user()->hasRoles(['admin']))
 					<li class=" nav-item {{ activeMenu('usuarios')}}">
 						<a class="nav-link" href="{{ route('usuarios.index') }}"> Usuarios</a>
 					</li>
@@ -49,6 +51,9 @@
         	</a>
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 	          <a class="dropdown-item" href="/logout">Cerrar sesión</a>
+	          <a class="dropdown-item" href="/usuarios/{{ auth()->id() }}/edit">
+	          	Mi cuenta
+	          </a>
 	         
 	        </div>
       	</li>

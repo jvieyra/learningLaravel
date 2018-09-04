@@ -18,8 +18,25 @@
 					<td>{{ $user->id }}</td>
 					<td>{{ $user->name }}</td>
 					<td>{{ $user->email }}</td>
-					<td>{{ $user->role }}</td>
-					<td></td>
+					<td>
+						@foreach($user->roles as $role)
+							{{ $role->display_name }}
+						@endforeach
+					</td>
+					<td>
+						<a class="btn btn-primary btn-sm" 
+							 href="{{ route('usuarios.edit',$user->id) }}">
+							Editar
+						</a>
+						<form method="POST" 
+									action="{{ route('usuarios.destroy', $user->id) }}">
+							{!! method_field('DELETE') !!}
+
+							{!! csrf_field() !!}
+							
+							<button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
+						</form>
+					</td>
 				</tr>
 
 			@endforeach

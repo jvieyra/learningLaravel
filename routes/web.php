@@ -2,14 +2,22 @@
 
 /*tipos de rutas */
 Route::get('test',function(){
-	$user = new App\User;
-	$user->name = 'Alan';
-	$user->email = 'alan@gmail.com';
+/*	$user = new App\User;
+	$user->name = 'John';
+	$user->email = 'bonachon@gmail.com';
 	$user->password = bcrypt('secret');
-	$user->role = 'estudiante';
+	
 	$user->save();
 
-	return $user;
+	return $user;*/
+
+	$role = new App\Role;
+	$role->name = "estudiante";
+	$role->display_name = "Estudiante";
+	$role->description = "Este role tiene permisos de estudiante";
+	$role->save();
+	return $role;
+
 });
 
 
@@ -31,6 +39,11 @@ Route::resource('usuarios','UsersController');
 Route::get('login','Auth\LoginController@showLoginForm');
 Route::post('login','Auth\LoginController@login');
 Route::get('logout','Auth\LoginController@logout');
+
+
+Route::get('roles',function(){
+	return \App\Role::with('user')->get();
+});
 
 
 

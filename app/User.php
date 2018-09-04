@@ -26,19 +26,31 @@ class User extends Authenticatable
 		protected $hidden = [
 				'password', 'remember_token','role'
 		];
+
+		public function roles(){
+
+			return $this->belongsToMany(Role::class,'assigned_roles');
+		}
 		
 
 		//valida si tiene algun rol
 		public function hasRoles(array $roles){
 
 			foreach ($roles as $role) {
-				if($this->role === $role){
-					return true;
+
+				foreach($this->roles as $userRole){
+					if($userRole->name === $role){
+						return true;
+					}
 				}
 			}
 
 			return false;
 			
+		}
+
+		public function isAdmin(){
+			return $this->hasRoles(['admin']);
 		}
 		
 }
