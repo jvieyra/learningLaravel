@@ -2,7 +2,8 @@
 
 /*tipos de rutas */
 Route::get('test',function(){
-/*	$user = new App\User;
+	/*
+	$user = new App\User;
 	$user->name = 'John';
 	$user->email = 'bonachon@gmail.com';
 	$user->password = bcrypt('secret');
@@ -11,12 +12,13 @@ Route::get('test',function(){
 
 	return $user;*/
 
+	/*
 	$role = new App\Role;
-	$role->name = "estudiante";
-	$role->display_name = "Estudiante";
-	$role->description = "Este role tiene permisos de estudiante";
+	$role->name = "admin";
+	$role->display_name = "Administrador";
+	$role->description = "Este role tiene permisos de Administrador";
 	$role->save();
-	return $role;
+	return $role;*/
 
 });
 

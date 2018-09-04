@@ -37,12 +37,7 @@ class User extends Authenticatable
 		public function hasRoles(array $roles){
 
 			foreach ($roles as $role) {
-
-				foreach($this->roles as $userRole){
-					if($userRole->name === $role){
-						return true;
-					}
-				}
+				return $this->roles->pluck('name')->intersect($roles)->count(); 
 			}
 
 			return false;
