@@ -15,6 +15,7 @@ class MessagesController extends Controller{
 
 	public function index(){
 		$messages = Message::all();
+		
 		return view('messages.index',compact('messages'));
 	}
 
@@ -23,7 +24,11 @@ class MessagesController extends Controller{
 	}
 
 	public function store(Request $request){
-		Message::create($request->all());
+		$message = Message::create($request->all());
+		if(auth()->check()){
+			//dd(auth()->user()->messages());
+			auth()->user()->messages()->save($message);
+		}
 		return redirect()
 				->route('mensajes.create')
 				->with('info','Hemos recibido tu mensaje');

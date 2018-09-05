@@ -9,22 +9,26 @@
 	<form  method="POST" action="{{ route('mensajes.store') }}">
 		{!! csrf_field() !!}
 
-		<div class="form-group">
-			<label for="nombre">Nombre</label>
-			<input class="form-control" type="text" name="nombre" value="{{ old('nombre') }}">
-				{!! $errors->first(
-					'nombre',
-					'<span class=error>:message</span>') 
-				!!}
-			<p></p>	
-		</div>
+		@if(auth()->guest())
+				<div class="form-group">
+					<label for="nombre">Nombre</label>
+					<input class="form-control" type="text" name="nombre" value="{{ old('nombre') }}">
+						{!! $errors->first(
+							'nombre',
+							'<span class=error>:message</span>') 
+						!!}
+					<p></p>	
+				</div>
 
-		<div class="form-group">
-			<label for="email">Email</label>
-			<input class="form-control" type="text" name="email" value="{{ old('email') }}">
-			{!! $errors->first('email','<span class=error>:message</span>') !!}
-		<p></p>
-		</div>
+			<div class="form-group">
+				<label for="email">Email</label>
+				<input class="form-control" type="text" name="email" value="{{ old('email') }}">
+				{!! $errors->first('email','<span class=error>:message</span>') !!}
+			<p></p>
+			</div>
+		@endif
+
+
 		
 		<div class="form-group">
 			<label for="mensaje">Mensaje</label>
