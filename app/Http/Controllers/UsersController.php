@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 
 use App\User;
+use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\CreateUserRequest;
 
 class UsersController extends Controller{
 
@@ -25,9 +27,9 @@ class UsersController extends Controller{
 		 *
 		 * @return \Illuminate\Http\Response
 		 */
-		public function create()
-		{
-				//
+		public function create(){
+			$roles = Role::pluck('display_name','id');
+			return view('users.create',compact('roles'));
 		}
 
 		/**
@@ -36,9 +38,11 @@ class UsersController extends Controller{
 		 * @param  \Illuminate\Http\Request  $request
 		 * @return \Illuminate\Http\Response
 		 */
-		public function store(Request $request)
-		{
-				//
+		public function store(CreateUserRequest $request){
+		
+			$user = User::create($request->all());
+			$user->roles()->attach($request->roles);
+			return redirect()->route('usuarios.index');
 		}
 
 		/**
@@ -66,7 +70,8 @@ class UsersController extends Controller{
 
 			/*policy*/
 			$this->authorize('edit',$user);
-			return view('users.edit',compact('user'));
+			$roles = Role::pluck('display_name','id');
+			return view('users.edit',compact('user','roles'));
 		}
 
 		/**
@@ -78,9 +83,11 @@ class UsersController extends Controller{
 		 */
 		public function update(UpdateUserRequest $request, $id)
 		{
+
 			$user = User::findOrFail($id);
 			$this->authorize('update',$user);
-			$user->update($request->all());
+			$user->update($request->only('name','email'));
+			$user->roles()->sync($request->roles);
 			return back()->with('info','Usuario Actualizado');
 		}
 

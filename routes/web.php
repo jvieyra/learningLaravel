@@ -2,23 +2,22 @@
 
 /*tipos de rutas */
 Route::get('test',function(){
+
 	/*
 	$user = new App\User;
-	$user->name = 'John';
-	$user->email = 'bonachon@gmail.com';
+	$user->name = 'Jules';
+	$user->email = 'jules@gmail.com';
 	$user->password = bcrypt('secret');
-	
 	$user->save();
+	return $user;
+	*/
 
-	return $user;*/
-
-	/*
-	$role = new App\Role;
-	$role->name = "admin";
-	$role->display_name = "Administrador";
-	$role->description = "Este role tiene permisos de Administrador";
-	$role->save();
-	return $role;*/
+	// $role = new App\Role;
+	// $role->name = "mod";
+	// $role->display_name = "Moderador";
+	// $role->description = "Este role tiene permisos de Moderador";
+	// $role->save();
+	// return $role;
 
 });
 

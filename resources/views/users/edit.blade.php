@@ -12,28 +12,12 @@
 		@endif
 		<form method="POST" action="{{ route('usuarios.update',$user->id) }}">
 		{!! method_field('PUT') !!}
-		{!! csrf_field() !!}
+		
+			@include('users.form')
 
-		<div class="form-group">
-			<label for="nombre">Nombre</label>
-			<input class="form-control" type="text" name="name" value="{{ $user->name}}">
-			{!! $errors->first(
-				'name',
-				'<span class=error>:message</span>') 
-			!!}
-			<p></p>
-		</div>
-		
-		<div class="form-group">
-			<label for="email">Email </label>
-			<input class="form-control" type="text" name="email" value="{{ $user->email }}">
-			{!! $errors->first('email','<span class=error>:message</span>') !!}
-			<p></p>
-		</div>
-		
 
 		
-		<button type="submit" class="btn btn-primary btn-sm">Editar</button>
-	</form>
+			<button type="submit" class="btn btn-primary btn-sm">Editar</button>
+		</form>
 
 @stop
