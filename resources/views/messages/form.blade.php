@@ -1,6 +1,6 @@
 {!! csrf_field() !!}
 
-@unless($message->user_id)
+@if($showFields)
 		<div class="form-group">
 			<label for="nombre">Nombre</label>
 			<input class="form-control" type="text" name="nombre" value="{{ $message->nombre or  old('nombre') }}">
@@ -17,7 +17,7 @@
 		{!! $errors->first('email','<span class=error>:message</span>') !!}
 	<p></p>
 	</div>
-@endunless
+@endif
 
 
 

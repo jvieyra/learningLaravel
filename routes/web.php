@@ -21,6 +21,14 @@ Route::get('test',function(){
 
 });
 
+DB::listen(function($query){
+	/*Muestra en pantalla las consultas sql eloquent*/
+	echo "<pre><{ $query->sql }/pre>";
+
+	/*Tiempo de carga de las consultas sql*/
+	//echo "<pre><{ $query->time }/pre>";
+}); 
+
 
 
 Route::get('/', ['as' => 'home','uses' => 'PagesController@home']);

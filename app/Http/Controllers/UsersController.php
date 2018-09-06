@@ -18,7 +18,9 @@ class UsersController extends Controller{
 		}
 
 		public function index(){
-			$users = \App\User::all();
+			//with pasa las relaciones sql, para evitar que se ejecuten sentencias por relacion
+			//se agrupan para solo ejecutar 3 consultas a esas relaciones('roles','note','tags')
+			$users = User::with(['roles','note','tags'])->get();
 			return view('users.index',compact('users'));
 		}
 

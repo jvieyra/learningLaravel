@@ -14,7 +14,8 @@ class MessagesController extends Controller{
 	}
 
 	public function index(){
-		$messages = Message::all();
+		//get para que se ejecute la consulta.
+		$messages = Message::with(['user','note','tags'])->get();
 		
 		return view('messages.index',compact('messages'));
 	}

@@ -41,9 +41,9 @@
 						<a href="{{ route('mensajes.show',$message->id) }}">
 							{{ $message->mensaje }}
 						</a>
-					</td>
+					</td> 
 					<td>
-						{{ $message->note->body }}
+						{{ $message->note ? $message->note->body : ''}}
 					</td>
 					<td>
 						{{ $message->tags->pluck('name')->implode(', ') }}
