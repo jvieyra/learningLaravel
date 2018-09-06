@@ -20,7 +20,6 @@
 @endif
 
 
-
 <div class="form-group">
 	<label for="mensaje">Mensaje</label>
 	<textarea class="form-control" name="mensaje">{{ $message->mensaje or old('mensaje') }}</textarea>
