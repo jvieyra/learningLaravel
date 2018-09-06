@@ -12,8 +12,18 @@ class Message extends Model{
   /*massive assigment*/
   protected $fillable = ['nombre','email','mensaje'];
 
-
+  //hijo
   public function user(){
   	return $this->belongsTo(User::class);
+  }
+
+  //padre, relaciones polimorficas hasOne
+  public function note(){
+  	return $this->morphOne(Note::class,'notable');
+  }
+
+  //relaciones polimorficas
+  public function tags(){
+    return $this->morphToMany(Tag::class,'taggable');
   }
 }

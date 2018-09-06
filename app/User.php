@@ -58,4 +58,14 @@ class User extends Authenticatable
 			//un usuario puede tener varios mensajes.,
 			return $this->hasMany(Message::class);
 		}
+
+	//padre, relaciones polimorficas hasOne
+  public function note(){
+  	return $this->morphOne(Note::class,'notable');
+  }
+
+  //relaciones polimorficas
+  public function tags(){
+    return $this->morphToMany(Tag::class,'taggable')->withTimestamps();
+  }
 }

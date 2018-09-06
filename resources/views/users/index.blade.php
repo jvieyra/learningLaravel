@@ -12,6 +12,8 @@
 				<th>Nombre</th>
 				<th>Email</th>
 				<th>Role</th>
+				<th>Notas</th>
+				<th>Etiquetas</th>
 				<th>Acciones</th>
 			</tr>
 		</thead>
@@ -25,6 +27,8 @@
 						{{ $user->roles->pluck('display_name')->implode(' | ') }}
 						
 					</td>
+					<td>{{ $user->note->body }}</td>
+					<td>{{ $user->tags->pluck('name')->implode(', ') }}</td>
 					<td>
 						<a class="btn btn-primary btn-sm" 
 							 href="{{ route('usuarios.edit',$user->id) }}">
