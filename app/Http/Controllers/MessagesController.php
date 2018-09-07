@@ -7,6 +7,7 @@ use Mail;
 use App\Message;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Events\MessageWasReceived;
 
 class MessagesController extends Controller{
 
@@ -30,13 +31,18 @@ class MessagesController extends Controller{
 		$message = Message::create($request->all());
 		$message->user_id = auth()->id();
 		$message->save();
+
+		//event
+		//event(class(constructor))
+		event(new MessageWasReceived($message));
+
 		//enviar correo 
 		//Mail::send('La vista','Arreglo con variables para pasar a la vista','Funcion anonima ($message)')
-		Mail::send('emails.contact',['msg' => $message],function($m) use($message){
-			//dd($message);
-			$m->to($message->email, $message->name)
-				->subject('Tu mensaje fue recibido');
-		});
+		// Mail::send('emails.contact',['msg' => $message],function($m) use($message){
+		// 	//dd($message);
+		// 	$m->to($message->email, $message->name)
+		// 		->subject('Tu mensaje fue recibido');
+		// });
 
 		return redirect()
 				->route('mensajes.create')
