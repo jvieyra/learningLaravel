@@ -62,6 +62,7 @@
 					</td>
 				</tr>
 			@endforeach
+			{!! $messages->appends(request()->query())->links('pagination::default') !!}
 		</tbody>
 	</table>
 @stop

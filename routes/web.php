@@ -36,11 +36,11 @@ Route::get('/', ['as' => 'home','uses' => 'PagesController@home']);
 
 
 ##Validacion de tipo de datos, acepta solo letras
-Route::get('saludo/{nombre?}',
+/*Route::get('saludo/{nombre?}',
 	[
 		'as' => 'saludo',
 		'uses'=> 'PagesController@saludo']
-)->where('nombre','[A-Za-z]');
+)->where('nombre','[A-Za-z]');*/
 
 
 Route::resource('mensajes','MessagesController');

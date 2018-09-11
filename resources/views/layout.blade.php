@@ -26,9 +26,7 @@
     	<li class="nav-item {{ activeMenu('/') }}" >
     		<a class="nav-link" href="{{ route('home') }}">Inicio </a>
     	</li>
-    	<li class="nav-item {{activeMenu('saludo') }}">
-    		<a class="nav-link" href="{{ route('saludo') }}">Saludos </a>
-    	</li>
+    	
 			<li class="nav-item {{ activeMenu('mensajes/create')}}">
 				<a class="nav-link" href="{{ route('mensajes.create') }}">Contacto </a>
 			</li>

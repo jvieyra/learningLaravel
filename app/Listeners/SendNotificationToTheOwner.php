@@ -10,7 +10,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class SendNotificationToTheOwner
 {
 
-
     /**
      * Handle the event.
      *
