@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Presenters\MessagePresenter;
 use Illuminate\Database\Eloquent\Model;
 
 class Message extends Model{
@@ -25,5 +26,10 @@ class Message extends Model{
   //relaciones polimorficas
   public function tags(){
     return $this->morphToMany(Tag::class,'taggable');
+  }
+
+  public function present(){
+    //retorna una clase
+    return new MessagePresenter($this);
   }
 }

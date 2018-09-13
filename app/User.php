@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Presenters\UserPresenter;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -56,6 +57,10 @@ class User extends Authenticatable{
 	  //relaciones polimorficas
 	  public function tags(){
 	    return $this->morphToMany(Tag::class,'taggable')->withTimestamps();
+	  }
+
+	  public function present(){
+	  	return new UserPresenter($this);
 	  }
 
 

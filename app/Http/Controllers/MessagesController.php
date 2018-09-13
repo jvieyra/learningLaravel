@@ -7,24 +7,24 @@ use Mail;
 use App\Message;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
+use App\Repositories\Messages;
 use App\Events\MessageWasReceived;
+use App\Repositories\CacheMessages;
+use Illuminate\Support\Facades\Cache;
+use App\Repositories\MessagesInterface;
+
 
 class MessagesController extends Controller{
 
-	public function __construct(){
+	protected $messages;
+	
+	public function __construct(MessagesInterface $messages){
+		$this->messages = $messages;
 		$this->middleware('auth',['except'=>['create','store']]);
 	}
 
 	public function index(){
-		$key = "messages.page.". request('page',1);
-		$messages = Cache::rememberForever($key,function(){
-			return Message::with(['user','note','tags'])
-		 							->orderBy('created_at',request('sorted','DESC'))
-		 							->paginate(10);
-		});
-								
-		
+		$messages = $this->messages->getPaginated();
 		return view('messages.index',compact('messages'));
 	}
 
@@ -34,12 +34,7 @@ class MessagesController extends Controller{
 
 	public function store(Request $request){
 		//dd($request->all());
-		$message = Message::create($request->all());
-		$message->user_id = auth()->id();
-		$message->save();
-
-
-		Cache::flush();
+		$message = $this->messages->store($request );
 		//event
 		//event(class(constructor))
 		event(new MessageWasReceived($message));
@@ -58,32 +53,22 @@ class MessagesController extends Controller{
 	}
 
 	public function show($id){
-
-		$message = Cache::rememberForever("messages.{$id}", function() use($id){
-			return $message = Message::findOrFail($id);
-		});
-		
+		$message = $this->messages->findById($id);
 		return view('messages.show',compact('message'));
 	}
 
 	public function edit($id){
-		$message = Cache::rememberForever("messages.{$id}", function() use($id){
-			return $message = Message::findOrFail($id);
-		});
+		$message = $this->messages->findById($id);
 		return view('messages.edit',compact('message'));
 	}
 
 	public function update(Request $request, $id){
-		$message = Message::findOrFail($id);
-		$message->update($request->all());
-
-		Cache::flush();
+		$message = $this->messages->update($request, $id);
 		return redirect()->route('mensajes.index');
 	}
 
 	public function destroy($id){
-		$message = Message::findOrFail($id)->delete();
-		Cache::flush();
+		$this->messages->destroy($id);
 		return redirect()->route('mensajes.index');
 	}
 }

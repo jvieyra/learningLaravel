@@ -1,5 +1,7 @@
 <?php
 
+
+
 /*tipos de rutas */
 Route::get('test',function(){
 
@@ -46,8 +48,8 @@ Route::get('/', ['as' => 'home','uses' => 'PagesController@home']);
 Route::resource('mensajes','MessagesController');
 Route::resource('usuarios','UsersController');
 
-Route::get('login','Auth\LoginController@showLoginForm');
-Route::post('login','Auth\LoginController@login');
+Route::get('login',[ 'as' => 'login', 'uses' => 'Auth\LoginController@showLoginForm']);
+Route::post('login',['as' => 'login', 'uses' => 'Auth\LoginController@login']);
 Route::get('logout','Auth\LoginController@logout');
 
 

@@ -20,33 +20,14 @@
 				<tr>
 					<td>{{ $message->id }}</td>
 
-					@if($message->user_id)
-						<td>
-							<a href="{{ route('usuarios.show',$message->user_id) }}">
-								{{ $message->user->name }}
-							</a>
-						</td>
-						<td>
-							{{ $message->user->email }}
-						</td>
-					@else
-						<td>
-							{{ $message->nombre }}
-						</td>
-						<td>
-							{{ $message->email }}
-						</td>
-					@endif	
+					<td> {{ $message->present()->userName() }}</td>	
+					<td> {{ $message->present()->userEmail() }}</td>	
 					<td>
-						<a href="{{ route('mensajes.show',$message->id) }}">
-							{{ $message->mensaje }}
-						</a>
+						{{ $message->present()->link() }}
 					</td> 
+					<td>{{ $message->present()->tags() }}</td>
 					<td>
-						{{ $message->note ? $message->note->body : ''}}
-					</td>
-					<td>
-						{{ $message->tags->pluck('name')->implode(', ') }}
+						{{ $message->present()->notes() }}
 					</td>
 					<td>
 						<a class="btn btn-primary btn-sm" href="{{ route('mensajes.edit',$message->id) }}">
@@ -62,7 +43,7 @@
 					</td>
 				</tr>
 			@endforeach
-			{!! $messages->appends(request()->query())->links('pagination::default') !!}
+			{!!$messages->appends(request()->query())->links('pagination::default') !!}
 		</tbody>
 	</table>
 @stop
